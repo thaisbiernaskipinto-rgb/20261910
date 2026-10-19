@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protótipo: Criptografando Letras</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f6;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header, section, .interactive-box {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+      line-height: 1.3;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    code {
+      background: #eef2f3;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    input {
+      text-transform: uppercase;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    button:focus-visible, input:focus-visible {
+      outline: 3px solid #85c1e9;
+      outline-offset: 2px;
+    }
+
+    .result {
+      background: #e8f8f5;
+      padding: 15px;
+      border-left: 5px solid #2ecc71;
+      border-radius: 4px;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    #outputText {
+      display: block;
+      margin-top: 8px;
+      font-family: monospace;
+      font-size: 1.2rem;
+    }
+
+    .hint {
+      color: #626d75;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      color: #626d75;
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🔐 Protótipo: Criptografando Letras</h1>
+    <p><strong>Conteúdo:</strong> Introdução à Criptografia e Cifra de César.</p>
+    <p>
+      Aprenda como uma mensagem pode ser transformada usando
+      um dos métodos clássicos da criptografia.
+    </p>
+  </header>
+
+  <section>
+    <h2>O que é criptografia de letras?</h2>
+
+    <p>
+      A criptografia é uma técnica utilizada para transformar
+      informações, dificultando sua leitura por pessoas que não
+      conhecem o método utilizado.
+    </p>
+
+    <p>
+      Um dos métodos históricos mais conhecidos é a
+      <strong>Cifra de César</strong>, que substitui cada letra
+      por outra localizada algumas posições adiante no alfabeto.
+    </p>
+
+    <p>
+      Neste protótipo, utilizamos um deslocamento fixo de
+      <strong>3 posições</strong>: A vira D, B vira E, C vira F
+      e assim por diante. Quando chegamos ao final do alfabeto,
+      voltamos ao início: X vira A, Y vira B e Z vira C.
+    </p>
+
+    <p>
+      <strong>Exemplo:</strong>
+      a palavra <code>OLA</code> se transforma em
+      <code>ROD</code>.
+    </p>
+
+    <p class="hint">
+      Esta cifra é educativa e não deve ser utilizada para proteger
+      informações reais, pois é fácil de decifrar.
+    </p>
+  </section>
+
+  <div class="interactive-box">
+    <h2>🧪 Experimente a Cifra de César</h2>
+
+    <p>
+      Digite uma mensagem e clique no botão para criptografá-la.
+      Espaços, números e sinais de pontuação serão preservados.
+    </p>
+
+    <label for="inputText"><strong>Mensagem original:</strong></label>
+
+    <input
+      type="text"
+      id="inputText"
+      placeholder="EX.: OLA MUNDO!"
+      autocomplete="off"
+      maxlength="500"
+    >
+
+    <button type="button" onclick="criptografar()">
+      Criptografar mensagem
+    </button>
+
+    <div id="output" class="result" role="status" aria-live="polite" hidden>
+      <strong>Texto criptografado:</strong>
+      <span id="outputText"></span>
+    </div>
+  </div>
+
+  <section>
+    <h2>Como o código funciona?</h2>
+
+    <ul>
+      <li>
+        <code>document.getElementById()</code> acessa os elementos
+        da página.
+      </li>
+      <li>
+        <code>toUpperCase()</code> converte as letras para maiúsculas.
+      </li>
+      <li>
+        Um laço <code>for</code> percorre cada caractere da mensagem.
+      </li>
+      <li>
+        <code>charCodeAt()</code> obtém o código numérico do caractere.
+      </li>
+      <li>
+        A operação matemática aplica o deslocamento de três posições,
+        retornando ao início do alfabeto quando necessário.
+      </li>
+      <li>
+        <code>textContent</code> exibe o resultado na página.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Desafio rápido</h2>
+
+    <p>
+      1. Digite <code>ABC XYZ</code>. Qual será o resultado?
+    </p>
+    <p>
+      2. O que acontece quando uma letra chega ao final do alfabeto?
+    </p>
+    <p>
+      3. Por que essa cifra não é segura para proteger senhas?
+    </p>
+  </section>
+
+  <footer>
+    Atividade prática de programação web e introdução à criptografia.
+  </footer>
+
+  <script>
+    function criptografar() {
+      const campo = document.getElementById('inputText');
+      const texto = campo.value.toUpperCase();
+      const saida = document.getElementById('output');
+      const resultadoTexto = document.getElementById('outputText');
+
+      if (texto.trim() === '') {
+        resultadoTexto.textContent = 'Digite uma mensagem para continuar.';
+        saida.hidden = false;
+        campo.focus();
+        return;
+      }
+
+      let resultado = '';
+
+      for (let i = 0; i < texto.length; i++) {
+        const codigo = texto.charCodeAt(i);
+
+        // Verifica se o caractere está entre A e Z.
+        if (codigo >= 65 && codigo <= 90) {
+          // Converte para uma posição de 0 a 25,
+          // desloca 3 posições e retorna ao início se necessário.
+          const novoCodigo = ((codigo - 65 + 3) % 26) + 65;
+          resultado += String.fromCharCode(novoCodigo);
+        } else {
+          // Preserva espaços, números, acentos e pontuação.
+          resultado += texto[i];
+        }
+      }
+
+      resultadoTexto.textContent = resultado;
+      saida.hidden = false;
+    }
+
+    // Permite executar a criptografia pressionando Enter.
+    document.getElementById('inputText').addEventListener(
+      'keydown',
+      function(event) {
+        if (event.key === 'Enter') {
+          criptografar();
+        }
+      }
+    );
+  </script>
+
+</body>
+</html>
